@@ -1,0 +1,121 @@
+[gd_scene load_steps=3 format=3 uid="uid://bfocusaudit00dem"]
+
+[ext_resource type="Script" path="res://demo/main.gd" id="1_main"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_panel"]
+bg_color = Color(0.21, 0.22, 0.26, 1)
+content_margin_left = 14.0
+content_margin_top = 12.0
+content_margin_right = 14.0
+content_margin_bottom = 12.0
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[node name="Main" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_main")
+
+[node name="Bg" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.16, 0.17, 0.2, 1)
+
+[node name="Title" type="Label" parent="."]
+layout_mode = 1
+offset_left = 40.0
+offset_top = 28.0
+offset_right = 640.0
+offset_bottom = 60.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 22
+text = "Focus Audit demo - a menu that works with a mouse"
+
+[node name="Menu" type="PanelContainer" parent="."]
+layout_mode = 1
+offset_left = 40.0
+offset_top = 88.0
+offset_right = 300.0
+offset_bottom = 300.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_panel")
+
+[node name="Buttons" type="VBoxContainer" parent="Menu"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="Start" type="Button" parent="Menu/Buttons"]
+layout_mode = 2
+focus_neighbor_left = NodePath(".")
+focus_neighbor_top = NodePath("../Quit")
+focus_neighbor_right = NodePath(".")
+focus_neighbor_bottom = NodePath("../Options")
+text = "Start game"
+
+[node name="Options" type="Button" parent="Menu/Buttons"]
+layout_mode = 2
+focus_neighbor_left = NodePath(".")
+focus_neighbor_top = NodePath("../Start")
+focus_neighbor_right = NodePath("../Back")
+focus_neighbor_bottom = NodePath("../Quit")
+text = "Options"
+
+[node name="Quit" type="Button" parent="Menu/Buttons"]
+layout_mode = 2
+focus_neighbor_left = NodePath(".")
+focus_neighbor_top = NodePath("../Options")
+focus_neighbor_right = NodePath("../../../Gone/Missing")
+focus_neighbor_bottom = NodePath("../Start")
+tooltip_text = "PLANTED: focus_neighbor_right points at a node that was renamed away"
+text = "Quit"
+
+[node name="Back" type="Button" parent="Menu/Buttons"]
+layout_mode = 2
+focus_neighbor_left = NodePath(".")
+focus_neighbor_top = NodePath(".")
+focus_neighbor_right = NodePath(".")
+focus_neighbor_bottom = NodePath(".")
+tooltip_text = "PLANTED: every direction points at itself, so focus arrives and never leaves"
+text = "Back (trap)"
+
+[node name="SideBar" type="PanelContainer" parent="."]
+layout_mode = 1
+offset_left = 700.0
+offset_top = 88.0
+offset_right = 950.0
+offset_bottom = 220.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_panel")
+
+[node name="Extras" type="VBoxContainer" parent="SideBar"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="Credits" type="Button" parent="SideBar/Extras"]
+layout_mode = 2
+tooltip_text = "PLANTED: nothing in the menu points here, so a D-pad can never reach it"
+text = "Credits"
+
+[node name="Mute" type="CheckBox" parent="SideBar/Extras"]
+layout_mode = 2
+focus_mode = 0
+tooltip_text = "PLANTED: focus_mode is NONE, so this can only ever be clicked"
+text = "Mute audio"
+
+[node name="Hint" type="Label" parent="."]
+layout_mode = 1
+offset_left = 40.0
+offset_top = 330.0
+offset_right = 1000.0
+offset_bottom = 400.0
+theme_override_colors/font_color = Color(0.75, 0.77, 0.82, 1)
+autowrap_mode = 2
+text = "Nothing calls grab_focus() here, so the screen opens with no focus at all - press a D-pad direction and nothing happens. That is the fifth planted fault."

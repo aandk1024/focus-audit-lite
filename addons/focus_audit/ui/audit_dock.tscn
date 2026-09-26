@@ -1,0 +1,85 @@
+[gd_scene load_steps=2 format=3 uid="uid://bfocusaudit000dk"]
+
+[ext_resource type="Script" path="res://addons/focus_audit/ui/audit_dock.gd" id="1_dock"]
+
+[node name="Focus Audit" type="VBoxContainer"]
+custom_minimum_size = Vector2(240, 0)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 4
+script = ExtResource("1_dock")
+
+[node name="Focusable" type="CheckBox" parent="."]
+layout_mode = 2
+button_pressed = true
+tooltip_text = "Report controls a player must press that no keyboard or gamepad can focus."
+text = "Mouse-only controls"
+
+[node name="Reach" type="CheckBox" parent="."]
+layout_mode = 2
+button_pressed = true
+tooltip_text = "Report controls no arrow or D-pad direction leads to, and places focus gets stuck."
+text = "D-pad reachability"
+
+[node name="Initial" type="CheckBox" parent="."]
+layout_mode = 2
+button_pressed = true
+tooltip_text = "Report screens that open with nothing focused."
+text = "Initial focus"
+
+[node name="Neighbors" type="CheckBox" parent="."]
+layout_mode = 2
+button_pressed = true
+tooltip_text = "Report focus_neighbor paths that no longer lead to a focusable control."
+text = "focus_neighbor paths"
+
+[node name="OneWay" type="CheckBox" parent="."]
+layout_mode = 2
+button_pressed = true
+tooltip_text = "Report controls you can arrive at but cannot navigate back from. Noisier than the rest."
+text = "No route back"
+
+[node name="Sep" type="HSeparator" parent="."]
+layout_mode = 2
+
+[node name="CheckAll" type="Button" parent="."]
+layout_mode = 2
+tooltip_text = "Build every scene with the game's theme and walk its focus graph."
+text = "Check all scenes"
+
+[node name="CheckOpen" type="Button" parent="."]
+layout_mode = 2
+tooltip_text = "Same checks, but only on the scene currently open in the editor."
+text = "Check open scene"
+
+[node name="Sep2" type="HSeparator" parent="."]
+layout_mode = 2
+
+[node name="ExportRow" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="SaveMd" type="Button" parent="ExportRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "Write the last report to res://focus_audit_report.md"
+text = "Save .md"
+
+[node name="SaveJson" type="Button" parent="ExportRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "Write the last report to res://focus_audit_report.json for a build server."
+text = "Save .json"
+
+[node name="Sep3" type="HSeparator" parent="."]
+layout_mode = 2
+
+[node name="Log" type="RichTextLabel" parent="."]
+custom_minimum_size = Vector2(0, 180)
+layout_mode = 2
+size_flags_vertical = 3
+bbcode_enabled = true
+scroll_following = true
+selection_enabled = true
